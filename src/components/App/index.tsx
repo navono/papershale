@@ -1,6 +1,7 @@
 import * as React from 'react';
-import './App.scss';
+import './index.scss';
 import { PaperScope, Path, Point, Color } from 'paper';
+import Toolbar from '../Toolbar';
 
 class App extends React.Component {
   private canvasRef: React.RefObject<HTMLCanvasElement>;
@@ -24,7 +25,8 @@ class App extends React.Component {
   public render() {
     return (
       <div className="App">
-        <canvas id="canvas" ref={this.canvasRef} /> 
+        <canvas id="canvas" ref={this.canvasRef} />
+        <Toolbar />
       </div>
     );
   }
