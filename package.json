@@ -7,7 +7,9 @@
     "paper": "^0.11.5",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
-    "react-scripts-ts-antd": "2.17.0"
+    "react-redux": "^5.0.7",
+    "react-scripts-ts-antd": "2.17.0",
+    "redux": "^4.0.0"
   },
   "scripts": {
     "start": "react-scripts-ts-antd start",

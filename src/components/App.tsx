@@ -19,13 +19,12 @@ class App extends React.Component {
     const circle = new Path.Circle(new Point([50, 50]), 50);
     const color = new Color(255, 0, 0);
     circle.fillColor = color;
-    console.log(circle);
   }
 
   public render() {
     return (
       <div className="App">
-        <canvas id="canvas" ref={this.canvasRef} width={800} height={500}/> 
+        <canvas id="canvas" ref={this.canvasRef} /> 
       </div>
     );
   }
