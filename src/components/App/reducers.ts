@@ -1,9 +1,21 @@
 import { AnyAction } from 'redux';
 
-export default function appReducer(state: any, action: AnyAction): any {
-  return 'test';
-  // switch (state.type) {
-  //   default:
-  //     return 'test';
-  // }
+const initial = {
+  paper: null,
+};
+
+export default function appReducer(state: any = initial, action: AnyAction): any {
+  switch (action.type) {
+    case 'UPDATE_PAPER_SCOPE': {
+      // const b = new Blob([action.data]);
+      // console.log(b.size);
+
+      return {
+        ...state,
+        paper: action.data,
+      };
+    }
+    default:
+      return state;
+  }
 }
