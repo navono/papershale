@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 // import { PaperScope, Path, Color, Point, Tool, ToolEvent } from 'paper';
-import { PaperScope } from 'paper';
+import { PaperScope, Path } from 'paper';
 import './index.scss';
 import * as actions from './actions';
 import Toolbar from '../Toolbar';
@@ -43,6 +43,52 @@ class App extends React.Component<IProps, any> {
     // tool.onMouseDown = (e: ToolEvent) => {
     //   console.log('mouse down ', e);
     //   seg.point = seg.point.add(e.delta);
+    // };
+
+    const topLeft = [80, 80];
+    const bottomRight = [180, 180];
+    const rect = new Path.Rectangle({
+      topLeft,
+      bottomRight,
+      // Fill the path with a gradient of three color stops
+      // that runs between the two points we defined earlier:
+      fillColor: {
+          gradient: {
+              // stops: ['yellow', 'red', 'blue']
+              stops: [['white', 0.1], ['black', 0.5], ['white', 1]],
+              // radial: true
+          },
+          origin: topLeft,
+          destination: bottomRight
+      }
+    });
+    console.log(rect);
+
+    const circle = new Path.Circle({
+      center: [300, 300],
+      radius: 50,
+      fillColor: {
+        gradient: {
+            stops: [['white', 0.1], ['black', 0.5], ['white', 1]],
+            radial: true
+        },
+        origin: [300, 300],
+        destination: [330, 330]
+      }
+    });
+  
+    console.log(circle);
+
+    // Fill the path with a radial gradient color with three stops:
+    // yellow from 0% to 5%, mix between red from 5% to 20%,
+    // mix between red and black from 20% to 100%:
+    // circle.fillColor = {
+    //     gradient: {
+    //         stops: [['yellow', 0.05], ['red', 0.2], ['black', 1]],
+    //         radial: true
+    //     },
+    //     origin: circle.position,
+    //     destination: circle.bounds.rightCenter
     // };
   }
 
