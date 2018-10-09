@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 // import { PaperScope, Path, Color, Point, Tool, ToolEvent } from 'paper';
-import { PaperScope, Path } from 'paper';
+import { PaperScope, Path, Color } from 'paper';
 import './index.scss';
 import * as actions from './actions';
 import Toolbar from '../Toolbar';
@@ -79,17 +79,27 @@ class App extends React.Component<IProps, any> {
   
     console.log(circle);
 
-    // Fill the path with a radial gradient color with three stops:
-    // yellow from 0% to 5%, mix between red from 5% to 20%,
-    // mix between red and black from 20% to 100%:
-    // circle.fillColor = {
-    //     gradient: {
-    //         stops: [['yellow', 0.05], ['red', 0.2], ['black', 1]],
-    //         radial: true
-    //     },
-    //     origin: circle.position,
-    //     destination: circle.bounds.rightCenter
-    // };
+    const c = new Color(1, 0, 0);
+    console.log(c);
+    
+    const startY = 18;
+    const endY = startY + 20;
+    const p = new Path({
+      segments: [[21, startY], [243, startY], [429, startY], [596, startY], [666, startY], 
+                 [666, endY], [596, endY], [429, endY], [243, endY], [21, endY]],
+      fillColor: {
+        gradient: {
+          stops: [['black', 0.1], ['white', 0.5], ['black', 1]],
+        },
+        origin: [21, startY],
+        destination: [21, endY]
+      },
+      strokeCap: 'square',
+      // selected: true,
+      closed: true
+    });
+
+    console.log(p);
   }
 
   public render() {
