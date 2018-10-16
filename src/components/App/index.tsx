@@ -100,6 +100,14 @@ class App extends React.Component<IProps, any> {
     });
 
     console.log(p);
+
+    fetch(`http://192.168.200.101:24224`)
+    .then(res => {
+      console.log(res);
+    })
+    .catch(err => {
+      console.error(`Log server test: ${err}`);
+    });
   }
 
   public render() {
