@@ -98,12 +98,9 @@ class App extends React.Component<IProps, any> {
         },
         origin: [100, 50],
         destination: [100, 70]
-        // destination: [200, 200]
-        // origin: [21, startY],
-        // destination: [21, endY]
       },
       strokeCap: 'square',
-      selected: true,
+      // selected: true,
       // shadowColor: new Paper.Color(0, 0, 0),
       // shadowBlur: 2,
       // // Offset the shadow by { x: 5, y: 5 }
@@ -130,7 +127,7 @@ class App extends React.Component<IProps, any> {
         destination: [200, 200]
       },
       strokeCap: 'square',
-      selected: true,
+      // selected: true,
       // shadowColor: new Paper.Color(0, 0, 0),
       // shadowBlur: 2,
       // // Offset the shadow by { x: 5, y: 5 }
@@ -139,10 +136,36 @@ class App extends React.Component<IProps, any> {
     });
     console.log(p2);
 
-    // const seg1 = new Paper.Segment()
+    const p4 = new Paper.Path({
+      // segments: [[700, 100], [725, 75], [750, 50], [750, 75], [750, 300], [700, 300]],
+      segments: [[700, 100], [725, 75], [730, 55], [750, 75], [750, 300], [700, 300]],
+      fillRule: 'evenodd',
+      fillColor: {
+        gradient: {
+          stops: [['black', 0.1], ['white', 0.5], ['black', 1]],
+        },
+        origin: [750, 300],
+        destination: [700, 300]
+      },
+      strokeCap: 'square',
+      // selected: true,
+      // shadowColor: new Paper.Color(0, 0, 0),
+      // shadowBlur: 2,
+      // // Offset the shadow by { x: 5, y: 5 }
+      // shadowOffset: new Paper.Point(5, 5),
+      closed: true
+    });
+    p4.smooth({
+      type: 'catmull-rom',
+      factor: 0.5,
+      from: 1,
+      to: 3,
+    })
+    console.log(p4);
+
     const p3 = new Paper.Path({
-      // segments: [[500, 50], [700, 50], [750, 50], [700, 100], [500, 100]],
-      segments: [[500, 50], [700, 50], [725, 75], [700, 100], [500, 100]],
+      // segments: [[500, 50], [725, 50], [750, 50], [725, 75], [700, 100], [500, 100]],
+      segments: [[500, 50], [725, 50], [745, 70], [725, 75], [700, 100], [500, 100]],
       fillRule: 'evenodd',
       fillColor: {
         gradient: {
@@ -150,12 +173,9 @@ class App extends React.Component<IProps, any> {
         },
         origin: [500, 50],
         destination: [500, 100]
-        // destination: [200, 200]
-        // origin: [21, startY],
-        // destination: [21, endY]
       },
       strokeCap: 'square',
-      selected: true,
+      // selected: true,
       // shadowColor: new Paper.Color(0, 0, 0),
       // shadowBlur: 2,
       // // Offset the shadow by { x: 5, y: 5 }
@@ -170,34 +190,16 @@ class App extends React.Component<IProps, any> {
     });
     console.log(p3);
 
-    const p4 = new Paper.Path({
-      // segments: [[21, startY], [243, startY], [429, startY], [596, startY], [666, startY], 
-      //            [666, endY], [596, endY], [429, endY], [243, endY], [21, endY]],
-      // segments: [[750, 50], [750, 100], [750, 300], [700, 300], [700, 100]],
-      segments: [[725, 75], [750, 100], [750, 300], [700, 300], [700, 100]],
-      fillRule: 'evenodd',
-      fillColor: {
-        gradient: {
-          stops: [['black', 0.1], ['white', 0.5], ['black', 1]],
-        },
-        origin: [750, 300],
-        destination: [700, 300]
-      },
-      strokeCap: 'square',
-      selected: true,
-      // shadowColor: new Paper.Color(0, 0, 0),
-      // shadowBlur: 2,
-      // // Offset the shadow by { x: 5, y: 5 }
-      // shadowOffset: new Paper.Point(5, 5),
-      closed: true
-    });
-    p4.smooth({
-      type: 'catmull-rom',
-      factor: 0.5,
-      from: -1,
-      to: 1,
-    })
-    console.log(p4);
+    // const cp = new Paper.CompoundPath({
+    //   children: [
+    //     p4,
+    //     p3,
+    //   ],
+    //   fillColor: 'black',
+    //   selected: true
+    // });
+    // console.log(cp);
+    
 
   }
 
