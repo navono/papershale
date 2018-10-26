@@ -2,7 +2,8 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 // import { PaperScope, Path, Color, Point, Tool, ToolEvent } from 'paper';
-import { PaperScope, Path, Color } from 'paper';
+// import { PaperScope, Path, CompoundPath } from 'paper';
+import * as Paper from 'paper';
 import './index.scss';
 import * as actions from './actions';
 import Toolbar from '../Toolbar';
@@ -17,13 +18,13 @@ interface IProps {
 
 class App extends React.Component<IProps, any> {
   private canvasRef: React.RefObject<HTMLCanvasElement>;
-  private paper: PaperScope;
+  private paper: Paper.PaperScope;
   
   constructor(props: IProps) {
     super(props);
     
     this.canvasRef = React.createRef();
-    this.paper = new PaperScope();
+    this.paper = new Paper.PaperScope();
   }
 
   public componentDidMount() {
@@ -45,26 +46,26 @@ class App extends React.Component<IProps, any> {
     //   seg.point = seg.point.add(e.delta);
     // };
 
-    const topLeft = [80, 80];
-    const bottomRight = [180, 180];
-    const rect = new Path.Rectangle({
-      topLeft,
-      bottomRight,
-      // Fill the path with a gradient of three color stops
-      // that runs between the two points we defined earlier:
-      fillColor: {
-          gradient: {
-              // stops: ['yellow', 'red', 'blue']
-              stops: [['white', 0.1], ['black', 0.5], ['white', 1]],
-              // radial: true
-          },
-          origin: topLeft,
-          destination: bottomRight
-      }
-    });
-    console.log(rect);
+    // const topLeft = [180, 180];
+    // const bottomRight = [280, 280];
+    // const rect = new Path.Rectangle({
+    //   topLeft,
+    //   bottomRight,
+    //   // Fill the path with a gradient of three color stops
+    //   // that runs between the two points we defined earlier:
+    //   fillColor: {
+    //       gradient: {
+    //           // stops: ['yellow', 'red', 'blue']
+    //           stops: [['white', 0.1], ['black', 0.5], ['white', 1]],
+    //           // radial: true
+    //       },
+    //       origin: topLeft,
+    //       destination: bottomRight
+    //   }
+    // });
+    // console.log(rect);
 
-    const circle = new Path.Circle({
+    const circle = new Paper.Path.Circle({
       center: [300, 300],
       radius: 50,
       fillColor: {
@@ -74,40 +75,130 @@ class App extends React.Component<IProps, any> {
         },
         origin: [300, 300],
         destination: [330, 330]
-      }
+      },
+      shadowColor: new Paper.Color(0, 0, 0),
+      shadowBlur: 2,
+      // Offset the shadow by { x: 5, y: 5 }
+      shadowOffset: new Paper.Point(5, 5),
     });
   
     console.log(circle);
 
-    const c = new Color(1, 0, 0);
-    console.log(c);
-    
-    const startY = 18;
-    const endY = startY + 20;
-    const p = new Path({
-      segments: [[21, startY], [243, startY], [429, startY], [596, startY], [666, startY], 
-                 [666, endY], [596, endY], [429, endY], [243, endY], [21, endY]],
+    // const startY = 18;
+    // const endY = startY + 20;
+    const p = new Paper.Path({
+      // segments: [[21, startY], [243, startY], [429, startY], [596, startY], [666, startY], 
+      //            [666, endY], [596, endY], [429, endY], [243, endY], [21, endY]],
+      // segments: [[100, 50], [200, 50], [200, 200], [180, 200], [180, 70], [100, 70]],
+      segments: [[100, 50], [180, 50], [200, 50], [180, 70], [100, 70]],
+      fillRule: 'evenodd',
       fillColor: {
         gradient: {
           stops: [['black', 0.1], ['white', 0.5], ['black', 1]],
         },
-        origin: [21, startY],
-        destination: [21, endY]
+        origin: [100, 50],
+        destination: [100, 70]
+        // destination: [200, 200]
+        // origin: [21, startY],
+        // destination: [21, endY]
       },
       strokeCap: 'square',
-      // selected: true,
+      selected: true,
+      // shadowColor: new Paper.Color(0, 0, 0),
+      // shadowBlur: 2,
+      // // Offset the shadow by { x: 5, y: 5 }
+      // shadowOffset: new Paper.Point(5, 5),
       closed: true
     });
-
+    // p.smooth({
+    //   type: 'continuous',
+    //   from: 1,
+    //   to: 2,
+    // });
     console.log(p);
 
-    fetch(`http://192.168.200.101:24224`)
-    .then(res => {
-      console.log(res);
-    })
-    .catch(err => {
-      console.error(`Log server test: ${err}`);
+    const p2 = new Paper.Path({
+      // segments: [[21, startY], [243, startY], [429, startY], [596, startY], [666, startY], 
+      //            [666, endY], [596, endY], [429, endY], [243, endY], [21, endY]],
+      segments: [[200, 50], [200, 200], [180, 200], [180, 70], [200, 50]],
+      fillRule: 'evenodd',
+      fillColor: {
+        gradient: {
+          stops: [['black', 0.1], ['white', 0.5], ['black', 1]],
+        },
+        origin: [180, 200],
+        destination: [200, 200]
+      },
+      strokeCap: 'square',
+      selected: true,
+      // shadowColor: new Paper.Color(0, 0, 0),
+      // shadowBlur: 2,
+      // // Offset the shadow by { x: 5, y: 5 }
+      // shadowOffset: new Paper.Point(5, 5),
+      closed: true
     });
+    console.log(p2);
+
+    // const seg1 = new Paper.Segment()
+    const p3 = new Paper.Path({
+      // segments: [[500, 50], [700, 50], [750, 50], [700, 100], [500, 100]],
+      segments: [[500, 50], [700, 50], [725, 75], [700, 100], [500, 100]],
+      fillRule: 'evenodd',
+      fillColor: {
+        gradient: {
+          stops: [['black', 0.1], ['white', 0.5], ['black', 1]],
+        },
+        origin: [500, 50],
+        destination: [500, 100]
+        // destination: [200, 200]
+        // origin: [21, startY],
+        // destination: [21, endY]
+      },
+      strokeCap: 'square',
+      selected: true,
+      // shadowColor: new Paper.Color(0, 0, 0),
+      // shadowBlur: 2,
+      // // Offset the shadow by { x: 5, y: 5 }
+      // shadowOffset: new Paper.Point(5, 5),
+      closed: true
+    });
+    p3.smooth({
+      type: 'catmull-rom',
+      factor: 0.5,
+      from: 1,
+      to: 3,
+    });
+    console.log(p3);
+
+    const p4 = new Paper.Path({
+      // segments: [[21, startY], [243, startY], [429, startY], [596, startY], [666, startY], 
+      //            [666, endY], [596, endY], [429, endY], [243, endY], [21, endY]],
+      // segments: [[750, 50], [750, 100], [750, 300], [700, 300], [700, 100]],
+      segments: [[725, 75], [750, 100], [750, 300], [700, 300], [700, 100]],
+      fillRule: 'evenodd',
+      fillColor: {
+        gradient: {
+          stops: [['black', 0.1], ['white', 0.5], ['black', 1]],
+        },
+        origin: [750, 300],
+        destination: [700, 300]
+      },
+      strokeCap: 'square',
+      selected: true,
+      // shadowColor: new Paper.Color(0, 0, 0),
+      // shadowBlur: 2,
+      // // Offset the shadow by { x: 5, y: 5 }
+      // shadowOffset: new Paper.Point(5, 5),
+      closed: true
+    });
+    p4.smooth({
+      type: 'catmull-rom',
+      factor: 0.5,
+      from: -1,
+      to: 1,
+    })
+    console.log(p4);
+
   }
 
   public render() {
